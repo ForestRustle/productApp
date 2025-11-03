@@ -5,10 +5,8 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  basePath:
-    process.env.NODE_ENV === 'production' ? '/НАЗВАНИЕ_РЕПОЗИТОРИЯ' : '',
-  assetPrefix:
-    process.env.NODE_ENV === 'production' ? '/НАЗВАНИЕ_РЕПОЗИТОРИЯ/' : '',
+  basePath: process.env.NODE_ENV === 'production' ? '/productApp' : '',
+  assetPrefix: process.env.NODE_ENV === 'production' ? '/productApp/' : '',
   // Добавляем эту настройку
   experimental: {
     missingSuspenseWithCSRBailout: false,
