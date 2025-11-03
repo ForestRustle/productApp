@@ -27,7 +27,8 @@ export const createProduct = createAsyncThunk(
       };
 
       return newProduct;
-    } catch (error) {
+		} catch (error) {
+			console.error(error);
       return rejectWithValue('Ошибка при создании продукта');
     }
   }
