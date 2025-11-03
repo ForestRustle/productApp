@@ -6,7 +6,21 @@ import Link from 'next/link';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { updateProduct } from '../../../store/slices/productSlice';
 import { selectProductById } from '../../../store/selectors/productSelectors';
+import { productApi } from '../../../utils/api';
+export async function generateStaticParams() {
+  try {
+    const products = await productApi.getProducts();
 
+    return products.map((product) => ({
+      id: product.id.toString(),
+    }));
+  } catch (error) {
+    console.error('Error generating static params:', error);
+    return [];
+  }
+}
+
+export const dynamicParams = true;
 export default function ProductDetailPage() {
   const params = useParams();
   const router = useRouter();
