@@ -13,7 +13,7 @@ export interface Product {
 
 export interface CreateProductForm {
   title: string;
-  price: number;
+  price: string;
   description: string;
   category: string;
   image: string;

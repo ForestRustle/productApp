@@ -1,5 +1,5 @@
 import React from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { ProductWithLikes } from '../types/product';
 import styles from './ProductCard.module.css';
 
