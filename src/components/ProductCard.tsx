@@ -1,5 +1,5 @@
 import React from 'react';
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { ProductWithLikes } from '../types/product';
 import styles from './ProductCard.module.css';
 
@@ -14,13 +14,13 @@ const ProductCard: React.FC<ProductCardProps> = ({
   onToggleLike,
   onDelete,
 }) => {
-  const router = useRouter();
-
   const handleCardClick = (e: React.MouseEvent) => {
     if ((e.target as HTMLElement).closest(`.${styles.actionButton}`)) {
       return;
     }
-    router.push(`/products/${product.id}`);
+    // Добавляем basePath для GitHub Pages
+    const basePath = process.env.NODE_ENV === 'production' ? '/productApp' : '';
+    window.location.href = `${basePath}/products/${product.id}/`;
   };
 
   const truncateText = (text: string, maxLength: number = 100): string => {

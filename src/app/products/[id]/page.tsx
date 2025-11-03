@@ -11,12 +11,13 @@ export default function ProductDetailPage() {
   const params = useParams();
   const router = useRouter();
   const dispatch = useAppDispatch();
-
+  
   const productId = Number(params.id);
   const product = useAppSelector(selectProductById(productId));
-
+  
   const [isEditing, setIsEditing] = useState(false);
-
+  
+  // Ленивая инициализация формы на основе продукта
   const [editForm, setEditForm] = useState(() => ({
     title: product?.title || '',
     price: product?.price || 0,
@@ -26,12 +27,10 @@ export default function ProductDetailPage() {
 
   const handleSave = () => {
     if (product) {
-      dispatch(
-        updateProduct({
-          id: product.id,
-          updates: editForm,
-        })
-      );
+      dispatch(updateProduct({
+        id: product.id,
+        updates: editForm
+      }));
       setIsEditing(false);
     }
   };
@@ -53,7 +52,10 @@ export default function ProductDetailPage() {
       <div className="container">
         <div className="error" style={{ textAlign: 'center', padding: '40px' }}>
           <div style={{ marginBottom: '20px' }}>Продукт не найден</div>
-          <Link href="/products" className="btn btnPrimary">
+          <Link 
+            href="/products"
+            className="btn btnPrimary"
+          >
             Вернуться к списку
           </Link>
         </div>

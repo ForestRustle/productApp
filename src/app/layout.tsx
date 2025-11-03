@@ -15,8 +15,13 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const basePath = process.env.NODE_ENV === 'production' ? '/productApp' : '';
+
   return (
     <html lang="en">
+      <head>
+        <base href={basePath} />
+      </head>
       <body className={inter.className}>
         <StoreProvider>{children}</StoreProvider>
       </body>

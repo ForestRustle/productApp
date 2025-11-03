@@ -1,14 +1,12 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useAppDispatch } from '../../store/hooks';
 import { addProduct } from '../../store/slices/productSlice';
 import { CreateProductForm } from '../../types/product';
 
 export default function CreateProductPage() {
-  const router = useRouter();
   const dispatch = useAppDispatch();
 
   const [formData, setFormData] = useState<CreateProductForm>({
@@ -31,7 +29,6 @@ export default function CreateProductPage() {
       newErrors.title = 'Название должно быть не менее 3 символов';
     }
 
-    // Проверяем price как строку
     const priceValue = Number(formData.price);
     if (!formData.price.trim()) {
       newErrors.price = 'Цена обязательна';
@@ -71,16 +68,19 @@ export default function CreateProductPage() {
     try {
       await new Promise((resolve) => setTimeout(resolve, 500));
 
-      // Преобразуем price в число только при отправке
       const newProduct = {
         id: Date.now(),
         ...formData,
-        price: Number(formData.price), // преобразование здесь
+        price: Number(formData.price),
         rating: { rate: 0, count: 0 },
       };
 
       dispatch(addProduct(newProduct));
-      router.push('/products');
+
+      // Используем window.location для навигации
+      const basePath =
+        process.env.NODE_ENV === 'production' ? '/productApp' : '';
+      window.location.href = `${basePath}/products/`;
     } catch (error) {
       console.error('Error creating product:', error);
     } finally {
@@ -96,6 +96,7 @@ export default function CreateProductPage() {
       ...prev,
       [name]: value,
     }));
+
     if (errors[name as keyof CreateProductForm]) {
       setErrors((prev) => ({
         ...prev,
@@ -127,18 +128,19 @@ export default function CreateProductPage() {
           maxWidth: '600px',
         }}
       >
+        {/* Остальная часть формы без изменений */}
         <div className="formGroup">
           <label htmlFor="title" className="formLabel">
             Название продукта *
           </label>
           <input
             type="text"
-            id="price"
-            name="price"
-            value={formData.price}
+            id="title"
+            name="title"
+            value={formData.title}
             onChange={handleChange}
-            className={`formInput ${errors.price ? 'formInputError' : ''}`}
-            placeholder="0.00"
+            className={`formInput ${errors.title ? 'formInputError' : ''}`}
+            placeholder="Введите название продукта"
           />
           {errors.title && <span className="errorText">{errors.title}</span>}
         </div>
@@ -148,10 +150,9 @@ export default function CreateProductPage() {
             Цена *
           </label>
           <input
-            type="number"
+            type="text"
             id="price"
             name="price"
-            step="0.01"
             value={formData.price}
             onChange={handleChange}
             className={`formInput ${errors.price ? 'formInputError' : ''}`}
