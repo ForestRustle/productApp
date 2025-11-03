@@ -20,8 +20,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
     }
 
     // Для статического экспорта используем обычную навигацию
-    const basePath =
-      process.env.NODE_ENV === 'production' ? '/НАЗВАНИЕ_РЕПОЗИТОРИЯ' : '';
+    const basePath = process.env.NODE_ENV === 'production' ? '/productApp' : '';
     window.location.href = `${basePath}/products/${product.id}/`;
   };
 
