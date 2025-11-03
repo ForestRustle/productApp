@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
 import { ProductWithLikes } from '../types/product';
 import styles from './ProductCard.module.css';
 
@@ -15,12 +14,20 @@ const ProductCard: React.FC<ProductCardProps> = ({
   onDelete,
 }) => {
   const handleCardClick = (e: React.MouseEvent) => {
+    // Предотвращаем переход при клике на кнопки
     if ((e.target as HTMLElement).closest(`.${styles.actionButton}`)) {
       return;
     }
-    // Добавляем basePath для GitHub Pages
-    const basePath = process.env.NODE_ENV === 'production' ? '/productApp' : '';
+
+    // Для статического экспорта используем обычную навигацию
+    const basePath =
+      process.env.NODE_ENV === 'production' ? '/НАЗВАНИЕ_РЕПОЗИТОРИЯ' : '';
     window.location.href = `${basePath}/products/${product.id}/`;
+  };
+
+  const handleButtonClick = (e: React.MouseEvent, callback: () => void) => {
+    e.stopPropagation();
+    callback();
   };
 
   const truncateText = (text: string, maxLength: number = 100): string => {
@@ -53,20 +60,18 @@ const ProductCard: React.FC<ProductCardProps> = ({
             className={`${styles.actionButton} ${
               product.isLiked ? styles.likeButtonLiked : styles.likeButton
             }`}
-            onClick={(e) => {
-              e.stopPropagation();
-              onToggleLike(product.id);
-            }}
+            onClick={(e) =>
+              handleButtonClick(e, () => onToggleLike(product.id))
+            }
+            aria-label={product.isLiked ? 'Убрать лайк' : 'Добавить лайк'}
           >
             {product.isLiked ? '❤️' : '🤍'}
           </button>
 
           <button
             className={`${styles.actionButton} ${styles.deleteButton}`}
-            onClick={(e) => {
-              e.stopPropagation();
-              onDelete(product.id);
-            }}
+            onClick={(e) => handleButtonClick(e, () => onDelete(product.id))}
+            aria-label="Удалить продукт"
           >
             🗑️
           </button>
