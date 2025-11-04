@@ -14,12 +14,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
   onDelete,
 }) => {
   const handleCardClick = (e: React.MouseEvent) => {
-    // Предотвращаем переход при клике на кнопки
     if ((e.target as HTMLElement).closest(`.${styles.actionButton}`)) {
       return;
     }
-
-    // Для статического экспорта используем обычную навигацию
     const basePath = process.env.NODE_ENV === 'production' ? '/productApp' : '';
     window.location.href = `${basePath}/products/${product.id}/`;
   };
@@ -50,7 +47,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         <div className={styles.priceSection}>
           <span className={styles.price}>${product.price}</span>
           <span className={styles.rating}>
-            {product.rating.rate} ⭐ ({product.rating.count})
+            {product.rating?.rate || 0} ⭐ ({product.rating?.count || 0})
           </span>
         </div>
 

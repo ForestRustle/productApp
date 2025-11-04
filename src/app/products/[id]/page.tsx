@@ -1,11 +1,10 @@
 import { productApi } from '../../../utils/api';
 import ProductDetailClient from './ProductDetailClient';
+import Link from 'next/link';
 
-// Генерируем статические параметры
 export async function generateStaticParams() {
   try {
     const products = await productApi.getProducts();
-
     return products.map((product) => ({
       id: product.id.toString(),
     }));
@@ -14,8 +13,6 @@ export async function generateStaticParams() {
     return [];
   }
 }
-
-export const dynamicParams = true;
 
 interface ProductDetailPageProps {
   params: { id: string };
@@ -30,20 +27,27 @@ export default async function ProductDetailPage({
 
   try {
     product = await productApi.getProductById(productId);
+    if (!product.rating) {
+      product = {
+        ...product,
+        rating: {
+          rate: 0,
+          count: 0,
+        },
+      };
+    }
   } catch (error) {
-    // Если ошибка, возвращаем страницу ошибки
     return (
       <div className="container">
         <div className="error" style={{ textAlign: 'center', padding: '40px' }}>
           <div style={{ marginBottom: '20px' }}>Продукт не найден</div>
-          <a href="/products" className="btn btnPrimary">
+          <Link href="/products" className="btn btnPrimary">
             Вернуться к списку
-          </a>
+          </Link>
         </div>
       </div>
     );
   }
 
-  // Если продукт найден, возвращаем клиентский компонент
   return <ProductDetailClient initialProduct={product} />;
 }

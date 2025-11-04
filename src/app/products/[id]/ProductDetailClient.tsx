@@ -23,6 +23,9 @@ export default function ProductDetailClient({
     category: initialProduct.category,
   });
 
+  // Безопасный доступ к rating
+  const rating = initialProduct.rating || { rate: 0, count: 0 };
+
   const handleSave = () => {
     dispatch(
       updateProduct({
@@ -93,6 +96,7 @@ export default function ProductDetailClient({
             <div
               style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}
             >
+              {/* Форма редактирования без изменений */}
               <div className="formGroup">
                 <label className="formLabel">Название:</label>
                 <input
@@ -177,11 +181,10 @@ export default function ProductDetailClient({
                 <div
                   style={{ display: 'flex', alignItems: 'center', gap: '4px' }}
                 >
-                  <span style={{ fontSize: '18px' }}>
-                    ⭐ {initialProduct.rating.rate}
-                  </span>
+                  {/* Используем безопасный rating */}
+                  <span style={{ fontSize: '18px' }}>⭐ {rating.rate}</span>
                   <span style={{ color: '#666', fontSize: '14px' }}>
-                    ({initialProduct.rating.count} отзывов)
+                    ({rating.count} отзывов)
                   </span>
                 </div>
               </div>
