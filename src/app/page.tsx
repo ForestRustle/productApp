@@ -1,9 +1,11 @@
 'use client';
 
 import { useEffect } from 'react';
+import Link from 'next/link';
 
 export default function Home() {
   useEffect(() => {
+    // Только на клиенте делаем редирект
     window.location.href = '/products/';
   }, []);
 
@@ -14,11 +16,23 @@ export default function Home() {
         justifyContent: 'center',
         alignItems: 'center',
         height: '100vh',
-        fontSize: '18px',
-        color: '#666',
+        flexDirection: 'column',
+        gap: '20px',
       }}
     >
-      Перенаправление на страницу продуктов...
+      <p>Перенаправление на страницу продуктов...</p>
+      <Link
+        href="/products"
+        style={{
+          padding: '12px 24px',
+          backgroundColor: '#2c5aa0',
+          color: 'white',
+          textDecoration: 'none',
+          borderRadius: '4px',
+        }}
+      >
+        Перейти сразу
+      </Link>
     </div>
   );
 }
