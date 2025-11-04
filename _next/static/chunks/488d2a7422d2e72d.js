@@ -1,0 +1,1 @@
+(globalThis.TURBOPACK||(globalThis.TURBOPACK=[])).push(["object"==typeof document?document.currentScript:void 0,34735,e=>{"use strict";var r=e.i(43476),t=e.i(55487),i=e.i(64645),o=e.i(30044);let u=(0,i.configureStore)({reducer:{products:o.default}});function c({children:e}){return(0,r.jsx)(t.Provider,{store:u,children:e})}e.s(["default",()=>c],34735)}]);
