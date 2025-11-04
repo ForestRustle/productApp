@@ -1,4 +1,4 @@
 1:"$Sreact.fragment"
-2:I[39756,["/my-product-app/_next/static/chunks/ff1a16fafef87110.js","/my-product-app/_next/static/chunks/247eb132b7f7b574.js"],"default"]
-3:I[37457,["/my-product-app/_next/static/chunks/ff1a16fafef87110.js","/my-product-app/_next/static/chunks/247eb132b7f7b574.js"],"default"]
-0:{"buildId":"t6fInp2-1fi_a4n9ud2Nn","rsc":["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]]}],"loading":null,"isPartial":false}
+2:I[39756,["/productApp/_next/static/chunks/ff1a16fafef87110.js","/productApp/_next/static/chunks/247eb132b7f7b574.js"],"default"]
+3:I[37457,["/productApp/_next/static/chunks/ff1a16fafef87110.js","/productApp/_next/static/chunks/247eb132b7f7b574.js"],"default"]
+0:{"buildId":"Ns290eP-LG3NYNpEL5Xk_","rsc":["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]]}],"loading":null,"isPartial":false}
