@@ -1,12 +1,11 @@
 'use client';
 
 import { useEffect } from 'react';
-import Link from 'next/link';
 
 export default function Home() {
   useEffect(() => {
-    // Только на клиенте делаем редирект
-    window.location.href = '/products/';
+    // Добавляем basePath для редиректа
+    window.location.href = '/productApp/products/';
   }, []);
 
   return (
@@ -21,8 +20,8 @@ export default function Home() {
       }}
     >
       <p>Перенаправление на страницу продуктов...</p>
-      <Link
-        href="/products"
+      <a
+        href="/productApp/products/"
         style={{
           padding: '12px 24px',
           backgroundColor: '#2c5aa0',
@@ -32,7 +31,7 @@ export default function Home() {
         }}
       >
         Перейти сразу
-      </Link>
+      </a>
     </div>
   );
 }
